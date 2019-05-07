@@ -3,10 +3,10 @@
 #include <stdlib.h>
 
 /**
- * reverse_list - function reverses a singly linked list
+ * list_len - function returns the length of a singly linked list
  * @head: head of list
  *
- * Return: none
+ * Return: length of list
  */
 void reverse_list(listint_t **head)
 {
