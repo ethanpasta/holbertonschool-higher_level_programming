@@ -42,14 +42,14 @@ void print_python_bytes(PyObject *p)
 	printf("[.] bytes object info\n");
 	if (!check)
 	{
-		printf("[ERROR] Invalid Bytes Object\n");
+		printf("  [ERROR] Invalid Bytes Object\n");
 		return;
 	}
 	size = PyBytes_Size(p);
 	printf("  size: %lu\n", size);
 	str = PyBytes_AsString(p);
 	printf("  trying string: %s\n", str);
-	printf("  first %lu bytes:", (size <= 10) ? size : 10);
+	printf("  first %lu bytes:", (size <= 10) ? size + 1 : 10);
 	for (i = 0; i < size + 1 && i < 10; i++)
 	{
 		printf(" %02x", str[i] & 0xff);
