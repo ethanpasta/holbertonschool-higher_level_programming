@@ -18,7 +18,6 @@ void print_python_list(PyObject *p)
 	size_t len, i;
 	PyListObject *pl = (PyListObject *)p;
 
-	fflush(stdout);
 	printf("[*] Python list info\n");
 	if (!PyList_Check(p))
 	{
@@ -32,10 +31,10 @@ void print_python_list(PyObject *p)
 	for (i = 0; i < len; i++)
 	{
 		printf("Element %lu: %s\n", i, pl->ob_item[i]->ob_type->tp_name);
-		if (PyBytes_Check((PyObject *)pl->ob_item[i]))
-			print_python_bytes((PyObject *)pl->ob_item[i]);
-		else if (PyFloat_Check((PyObject *)pl->ob_item[i]))
-			print_python_float((PyObject *)pl->ob_item[i]);
+		if (strcmp(pl->ob_item[i]->ob_type->tp_name, "bytes") == 0)
+			print_python_bytes(pl->ob_item[i]);
+		else if (strcmp(pl->ob_item[i]->ob_type->tp_name, "float") == 0)
+			print_python_float(pl->ob_item[i]);
 	}
 	fflush(stdout);
 }
@@ -58,12 +57,14 @@ void print_python_bytes(PyObject *p)
 		fflush(stdout);
 		return;
 	}
-	size = (PyBytes_Size(p) > 10) ? 10 : PyBytes_Size(p);
+	size = PyBytes_Size(p);
 	printf("  size: %lu\n", size);
+	if (size > 10)
+		size = 10;
 	str = ((PyBytesObject *)p)->ob_sval;
 	printf("  trying string: %s\n", str);
-	printf("  first %lu bytes:", size);
-	for (i = 0; i < size; i++)
+	printf("  first %lu bytes:", size + 1);
+	for (i = 0; i <= size; i++)
 	{
 		printf(" %02x", str[i] & 0xff);
 	}
