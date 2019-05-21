@@ -23,9 +23,10 @@ void print_python_list(PyObject *p)
 	if (!PyList_CheckExact(p))
 	{
 		printf("  [ERROR] Invalid List Object\n");
+		fflush(stdout);
 		return;
 	}
-	len = ((PyVarObject *)p)->ob_size;
+	len = PyList_GET_SIZE(p);
 	printf("[*] Size of the Python List = %lu\n", len);
 	printf("[*] Allocated = %lu\n", pl->allocated);
 	for (i = 0; i < len; i++)
@@ -36,6 +37,7 @@ void print_python_list(PyObject *p)
 		else if (PyFloat_Check((PyObject *)pl->ob_item[i]))
 			print_python_float((PyObject *)pl->ob_item[i]);
 	}
+	fflush(stdout);
 }
 
 /**
@@ -46,18 +48,18 @@ void print_python_list(PyObject *p)
  */
 void print_python_bytes(PyObject *p)
 {
-	int check = ((PyVarObject *)p)->ob_size;
 	char *str;
 	unsigned long int i, size;
 
 	fflush(stdout);
 	printf("[.] bytes object info\n");
-	if (!check)
+	if (!PyBytes_Check(p))
 	{
 		printf("  [ERROR] Invalid Bytes Object\n");
+		fflush(stdout);
 		return;
 	}
-	size = p->ob_refcnt;
+	size = PyBytes_Size(p);
 	printf("  size: %lu\n", size);
 	str = ((PyBytesObject *)p)->ob_sval;
 	printf("  trying string: %s\n", str);
@@ -67,6 +69,7 @@ void print_python_bytes(PyObject *p)
 		printf(" %02x", str[i] & 0xff);
 	}
 	printf("\n");
+	fflush(stdout);
 }
 
 /**
@@ -76,17 +79,17 @@ void print_python_bytes(PyObject *p)
 void print_python_float(PyObject *p)
 {
 	double val;
+	char *str;
 
-	fflush(stdout);
 	printf("[.] float object info\n");
 	if (!PyFloat_Check(p))
 	{
 		printf("  [ERROR] Invalid Float Object\n");
+		fflush(stdout);
 		return;
 	}
 	val = PyFloat_AsDouble(p);
-	if ((long int)val - val == 0)
-		printf("  value: %.1f\n", val);
-	else
-		printf("  value: %.16g\n", val);
+	str = PyOS_double_to_string(val, 'r', 0, Py_DTSF_ADD_DOT_0, NULL);
+	printf("  value: %s\n", str);
+	fflush(stdout);
 }
