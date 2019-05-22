@@ -73,8 +73,7 @@ class SinglyLinkedList:
                 return
             while tmp.next_node and value > tmp.next_node.data:
                 tmp = tmp.next_node
-            newN = Node(value, tmp.next_node)
-            tmp.next_node = newN
+            tmp.next_node = Node(value, tmp.next_node)
 
     def __str__(self):
         """ Method to return string representation of linked list
@@ -83,6 +82,6 @@ class SinglyLinkedList:
         tmp = self.__head
         while tmp:
             strS += str(tmp.data)
-            strS += '\n' if tmp.next_node else ''
+            strS += '\n'
             tmp = tmp.next_node
-        return strS
+        return strS[:-1]
