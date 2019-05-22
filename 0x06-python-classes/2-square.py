@@ -1,6 +1,14 @@
 #!/usr/bin/python3
 class Square:
+    """ Square class
+    """
+
     def __init__(self, size=0):
+        """ Initialization for Square object
+
+        Args:
+            size: size of the square
+        """
         if type(size) is not int:
             raise TypeError('size must be an integer')
         if size < 0:
