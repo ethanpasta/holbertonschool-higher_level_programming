@@ -34,12 +34,12 @@ class Square:
         """
         if type(value) is not int:
             raise TypeError('size must be an integer')
-        if size < 0:
+        if value < 0:
             raise ValueError('size must be >= 0')
-        self.__size = size
+        self.__size = value
 
     @position.setter
-    def property(self, value):
+    def position(self, value):
         """ Setter for position property
 
         Args:
@@ -49,7 +49,7 @@ class Square:
             raise TypeError('position must be a tuple of 2 positive integers')
         elif value[0] < 0 or value[1] < 0:
             raise TypeError('position must be a tuple of 2 positive integers')
-        self.__position = position
+        self.__position = value
 
     def my_print(self):
         """ Method to print square to stdout
