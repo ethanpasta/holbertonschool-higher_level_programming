@@ -61,16 +61,7 @@ class Square:
     def my_print(self):
         """ Method prints the square
         """
-        if self.__size == 0:
-            print()
-            return
-        for i in range(self.__position[1]):
-            print()
-        for i in range(self.__size):
-            print(' ' * self.__position[0], end='')
-            for j in range(self.__size):
-                print('#', end='')
-            print()
+        print(__str__, end='')
 
     def __str__(self):
         """ Method returns string representation of Square object
