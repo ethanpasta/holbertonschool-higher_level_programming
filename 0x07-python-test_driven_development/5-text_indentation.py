@@ -3,6 +3,8 @@
 Module for 5-text_indentation
 Program prints organized text
 """
+
+
 def text_indentation(text):
     """ Prints newlines after characters ':' '.' '?'
 

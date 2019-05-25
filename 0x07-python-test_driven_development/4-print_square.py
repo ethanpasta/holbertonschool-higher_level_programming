@@ -3,6 +3,8 @@
 Module for 4-print_square
 Program prints a square with a certain size
 """
+
+
 def print_square(size):
     """
     prints a square
@@ -19,4 +21,5 @@ def print_square(size):
     elif size == 0:
         return
     else:
-        print(''.join(['\n' if x % (size + 1) == 0 else '#' for x in range(1, size ** 2 + size)]))
+        print(''.join(['\n' if x % (size + 1) == 0 else '#'
+                       for x in range(1, size ** 2 + size)]))
