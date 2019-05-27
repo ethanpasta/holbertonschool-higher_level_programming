@@ -50,3 +50,13 @@ TypeError: a must be an integer
 >>> add_integer(12312, [])
 Traceback (most recent call last):
 TypeError: b must be an integer
+
+>>> add_integer(float('inf'), 1)
+Traceback (most recent call last):
+    ...
+OverflowError: cannot convert float infinity to integer
+
+>>> add_integer(float('nan'), 1)
+Traceback (most recent call last):
+    ...
+ValueError: cannot convert float NaN to integer
