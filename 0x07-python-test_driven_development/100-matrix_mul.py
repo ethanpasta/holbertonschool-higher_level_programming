@@ -3,6 +3,8 @@
 Module 100-matrix_mul
 Program multiplies two matrices
 """
+
+
 def matrix_mul(m_a, m_b):
     """
     Multiplies two matrices and returns the new matrix
@@ -19,7 +21,8 @@ def matrix_mul(m_a, m_b):
         raise ValueError('m_a can\'t be empty')
     if m_b == [] or m_b == [[]]:
         raise ValueError('m_b can\'t be empty')
-    row_l = len(m_a[0])
+    if type(m_a[0]) == list:
+        row_l = len(m_a[0])
     for x in m_a:
         if type(x) is not list:
             raise TypeError('m_a must be a list of lists')
@@ -28,7 +31,8 @@ def matrix_mul(m_a, m_b):
         for y in x:
             if not isinstance(y, (float, int)):
                 raise TypeError('m_a should contain only integers or floats')
-    row_l = len(m_b[0])
+    if type(m_b[0]) == list:
+        row_l = len(m_b[0])
     for x in m_b:
         if type(x) is not list:
             raise TypeError('m_b must be a list of lists')
