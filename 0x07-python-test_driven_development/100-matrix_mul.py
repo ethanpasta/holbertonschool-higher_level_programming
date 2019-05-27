@@ -1,5 +1,16 @@
 #!/usr/bin/python3
+"""
+Module 100-matrix_mul
+Program multiplies two matrices
+"""
 def matrix_mul(m_a, m_b):
+    """
+    Multiplies two matrices and returns the new matrix
+
+    Args:
+        m_a: first matrix
+        m_b: second matrix
+    """
     if type(m_a) is not list:
         raise TypeError('m_a must be a list')
     if type(m_b) is not list:
