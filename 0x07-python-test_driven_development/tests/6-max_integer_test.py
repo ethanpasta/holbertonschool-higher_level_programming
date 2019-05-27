@@ -50,5 +50,10 @@ class TestMaxInteger(unittest.TestCase):
         result = max_integer(l)
         self.assertEqual(result, 5)
 
+    def test_middle(self):
+        l = [1, 2, 10, 3, 1]
+        result = max_integer(l)
+        self.assertEqual(result, 10)
+
 if __name__ == '__main__':
     unittest.main()
