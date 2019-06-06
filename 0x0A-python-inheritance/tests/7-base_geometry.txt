@@ -1,0 +1,89 @@
+The ``7-base_geometry`` module
+============================
+
+Using ``base_geometry``
+---------------------
+
+Import class from module:
+
+>>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
+
+>>> cl = BaseGeometry()
+>>> type(cl) == BaseGeometry
+True
+
+>>> type(BaseGeometry.__dict__['area'])
+<class 'function'>
+
+>>> BaseGeometry.area()
+Traceback (most recent call last):
+    ...
+TypeError: area() missing 1 required positional argument: 'self'
+
+>>> cl = BaseGeometry()
+>>> cl.area()
+Traceback (most recent call last):
+    ...
+Exception: area() is not implemented
+
+>>> type(BaseGeometry.__dict__['integer_validator'])
+<class 'function'>
+
+>>> BaseGeometry.integer_validator()
+Traceback (most recent call last):
+    ...
+TypeError: integer_validator() missing 3 required positional arguments: 'self', 'name', and 'value'
+
+>>> cl = BaseGeometry()
+>>> cl.integer_validator()
+Traceback (most recent call last):
+    ...
+TypeError: integer_validator() missing 2 required positional arguments: 'name' and 'value'
+
+>>> cl = BaseGeometry()
+>>> cl.integer_validator(5, 5, 5)
+Traceback (most recent call last):
+    ...
+TypeError: integer_validator() takes 3 positional arguments but 4 were given
+
+>>> cl.integer_validator("hi", 1.1)
+Traceback (most recent call last):
+    ...
+TypeError: hi must be an integer
+
+>>> cl.integer_validator("hi", "hi")
+Traceback (most recent call last):
+    ...
+TypeError: hi must be an integer
+
+>>> cl.integer_validator("hi", True)
+Traceback (most recent call last):
+    ...
+TypeError: hi must be an integer
+
+>>> cl.integer_validator("hi", [1, 2, 3])
+Traceback (most recent call last):
+    ...
+TypeError: hi must be an integer
+
+>>> cl.integer_validator("hi", None)
+Traceback (most recent call last):
+    ...
+TypeError: hi must be an integer
+
+>>> cl.integer_validator("hi", 0)
+Traceback (most recent call last):
+    ...
+ValueError: hi must be greater than 0
+
+>>> cl.integer_validator("hi", -1)
+Traceback (most recent call last):
+    ...
+ValueError: hi must be greater than 0
+
+>>> cl.integer_validator("hi", 0)
+Traceback (most recent call last):
+    ...
+ValueError: hi must be greater than 0
+
+>>> cl.integer_validator("hi", 1)

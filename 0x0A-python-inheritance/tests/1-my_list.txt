@@ -1,0 +1,63 @@
+The ``1-my_list`` module
+============================
+
+Using ``my_list``
+---------------------
+
+Import class from module:
+
+>>> MyList = __import__('1-my_list').MyList
+
+>>> a = MyList()
+>>> type(a) == MyList
+True
+
+>>> a = MyList()
+>>> isinstance(a, MyList)
+True
+
+>>> type(MyList.__dict__['print_sorted'])
+<class 'function'>
+
+>>> MyList.print_sorted()
+Traceback (most recent call last):
+    ...
+TypeError: print_sorted() missing 1 required positional argument: 'self'
+
+>>> a = MyList()
+>>> a.print_sorted(1)
+Traceback (most recent call last):
+    ...
+TypeError: print_sorted() takes 1 positional argument but 2 were given
+
+>>> a = MyList()
+>>> a.print_sorted(1, 2)
+Traceback (most recent call last):
+    ...
+TypeError: print_sorted() takes 1 positional argument but 3 were given
+
+>>> a = MyList()
+>>> a.print_sorted()
+[]
+
+>>> a = MyList([3,2,1])
+>>> a.print_sorted()
+[1, 2, 3]
+
+>>> a = MyList([5, 3, 1, 9])
+>>> a.print_sorted()
+[1, 3, 5, 9]
+
+>>> a = MyList([1, -1, 0, -2])
+>>> a.print_sorted()
+[-2, -1, 0, 1]
+
+>>> a = MyList([3, 2, 1])
+>>> a.print_sorted()
+[1, 2, 3]
+>>> a
+[3, 2, 1]
+
+>>> a = MyList([1, 2, 3])
+>>> a.print_sorted()
+[1, 2, 3]
