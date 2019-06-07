@@ -20,7 +20,7 @@ class Student:
     def to_json(self, attrs=None):
         """Returns dictionary representation of a student instance"""
         my_dic = dict()
-        if attrs and type(attrs) is str and all(
+        if attrs and type(attrs) is list and all(
                 isinstance(s, str) for s in attrs):
             for x in attrs:
                 if x in self.__dict__:
