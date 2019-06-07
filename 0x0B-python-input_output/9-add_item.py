@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+"""Module 9-add_item
+Adds command line arguments to a list, and saves the list to a file
+"""
 import sys
 import json
 import os.path
