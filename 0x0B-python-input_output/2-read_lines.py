@@ -1,5 +1,9 @@
 #!/usr/bin/python3
+"""Module 2-read_lines"""
+
+
 def read_lines(filename="", nb_lines=0):
+    """Reads n lines of a text file and prints to stdout"""
     sum_l = 0
     with open(filename) as f:
         for line in f:
