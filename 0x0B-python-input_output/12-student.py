@@ -23,12 +23,13 @@ class Student:
         Args:
             attrs: list of attributes
         """
-        if attrs and type(attrs) is list and all(
+        if type(attrs) is not list or not all(
                 isinstance(s, str) for s in attrs):
-            my_dic = {}
-            for x in attrs:
-                if x in self.__dict__.keys():
-                    my_dic[x] = self.__dict__[x]
-            return my_dic
-        else:
             return self.__dict__
+        my_dic = {}
+        for x in attrs:
+            try:
+                my_dic[x] = self.__dict__[x]
+            except:
+                pass
+        return my_dic
