@@ -59,7 +59,14 @@ class Base:
             cls: class
             dictionary: dictionary of attribute names and values
         """
-        dummy = cls(1, 1, 1, 1, 1)
+        from models.rectangle import Rectangle
+        from models.square import Square
+        if cls is Rectangle:
+            dummy = Rectangle(1, 1)
+        elif cls is Square:
+            dummy = Square(1)
+        else:
+            dummy = None
         dummy.update(**dictionary)
         return dummy
 
