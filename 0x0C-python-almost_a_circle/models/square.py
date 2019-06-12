@@ -38,6 +38,17 @@ class Square(Rectangle):
         self.width = value
         self.height = value
 
+    def __update_help(self, id=None, size=None, x=None, y=None):
+        """Private internal method to update class attributes"""
+        if id is not None:
+            self.id = id
+        if size is not None:
+            self.size = size
+        if x is not None:
+            self.x = x
+        if y is not None:
+            self.y = y
+
     def update(self, *args, **kwargs):
         """ Update class attributes
 
@@ -45,22 +56,10 @@ class Square(Rectangle):
             args: new attribute values
             kwargs: attribute names and new values
         """
-        if args and args != ():
-            try:
-                self.id = args[0]
-                self.size = args[1]
-                self.x = args[2]
-                self.y = args[3]
-            except:
-                pass
-        else:
-            for attr, val in kwargs.items():
-                if attr == "id":
-                    self.id = val
-                elif attr == "size":
-                    self.size = val
-                else:
-                    setattr(self, '_Rectangle__' + attr, val)
+        if args:
+            self.__update_help(*args)
+        elif kwargs:
+            self.__update_help(**kwargs)
 
     def to_dictionary(self):
         """Public method returns dictionary representation"""
