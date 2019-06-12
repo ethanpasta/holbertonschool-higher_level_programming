@@ -25,7 +25,7 @@ class Base:
     @staticmethod
     def to_json_string(list_dictionaries):
         """Static method returns JSON string representation"""
-        if list_dictionaries is (None, [], [{}]):
+        if list_dictionaries is None or list_dictionaries == []:
             return "[]"
         else:
             return json.dumps(list_dictionaries)
@@ -59,11 +59,8 @@ class Base:
             cls: class
             dictionary: dictionary of attribute names and values
         """
-        print("here????")
         dummy = cls(1, 1, 1, 1, 1)
-        print("get here 1?")
         dummy.update(**dictionary)
-        print("get here?")
         return dummy
 
     @classmethod
