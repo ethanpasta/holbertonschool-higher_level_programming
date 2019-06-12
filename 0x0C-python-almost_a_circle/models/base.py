@@ -78,18 +78,9 @@ class Base:
             cls: class
         """
         filename = "{}.json".format(cls.__name__)
-        print("INSIDE LOAD_FROM_FILE")
-        print("---------------------")
         try:
             with open(filename) as f:
-                list_dict = cls.from_json_string(f.read())
-            for i in list_dict:
-                print(type(i))
-                print(len(i))
-                print(i)
-                print(Rectangle.create(i))
-            print(list_i)
-            print("--!----!-----!---!------")
-            return list_i
+                return [cls.create(
+                    **d) for d in cls.from_json_string(f.read())]
         except:
             return []
