@@ -111,6 +111,19 @@ class Rectangle(Base):
         return "[Rectangle] ({}) {}/{} - {}/{}".format(
             self.id, self.__x, self.__y, self.__width, self.__height)
 
+    def __update_help(self, id=None, width=None, height=None, x=None, y=None):
+        """Private internal method to update class attributes"""
+        if id is not None:
+            self.id = id
+        if width is not None:
+            self.width = width
+        if height is not None:
+            self.height = height
+        if x is not None:
+            self.x = x
+        if y is not None:
+            self.y = y
+
     def update(self, *args, **kwargs):
         """Public method updates attributes
 
@@ -118,21 +131,10 @@ class Rectangle(Base):
             args: new attribute values
             kwargs: dictionary of attribute names and values
         """
-        if args and args != ():
-            try:
-                self.id = args[0]
-                self.__width = args[1]
-                self.__height = args[2]
-                self.__x = args[3]
-                self.__y = args[4]
-            except:
-                pass
-        else:
-            for attr, val in kwargs.items():
-                if attr == "id":
-                    self.id = val
-                else:
-                    setattr(self, '_Rectangle__' + attr, val)
+        if args:
+            self.__update_help(*args)
+        elif kwargs:
+            self.__update_help(**kwargs)
 
     def to_dictionary(self):
         """Public method returns dictionary representation"""
