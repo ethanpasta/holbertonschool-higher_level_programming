@@ -16,7 +16,7 @@ class Base:
         Args:
             id: id
         """
-        if id != None:
+        if id is not None:
             self.id = id
         else:
             Base.__nb_objects += 1
@@ -33,7 +33,8 @@ class Base:
     @classmethod
     def save_to_file(cls, list_objs):
         """Class method writes JSON string representation to file"""
-        new_list = [] if list_objs == None else [x.to_dictionary() for x in list_objs]
+        new_list = [] if list_objs is None else [
+            x.to_dictionary() for x in list_objs]
         filename = "{}.json".format(cls.__name__)
         with open(filename, 'w+') as f:
             f.write(cls.to_json_string(new_list))
