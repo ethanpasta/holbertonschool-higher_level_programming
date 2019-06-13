@@ -28,5 +28,15 @@ class TestBase(unittest.TestCase):
         b7 = Base([1, 2, 3])
         self.assertEqual(b7.id, [1, 2, 3])
 
+    def test_to_json_string(self):
+        """Method tests to_json_string method"""
+        Base._Base__nb_objects = 0
+        r1 = Rectangle(10, 7, 2, 8)
+        dic = r1.to_dictionary()
+        json_dic = Base.to_json_string([dic])
+        dic_t = {'x': 2, 'width': 10, 'id': 1, 'height': 7, 'y': 8}
+        json_dic_t = '[{"width": 10, "y": 8, "id": 1, "x": 2, "height": 7}]'
+        self.assertEqual(type(dic), dict)
+        self.assertEqual(type(json_dic), str)
 if __name__ == '__main__':
     unittest.main()

@@ -1,0 +1,125 @@
+
+#!/usr/bin/python3
+"""Module for testing Square class"""
+
+
+import unittest
+from models.base import Base
+from models.rectangle import Rectangle
+from models.square import Square
+import io
+from contextlib import redirect_stdout
+
+class TestSquare(unittest.TestCase):
+    """Custom unittest class for Square module"""
+
+    def test_square_attr(self):
+        """Method tests squares attributes"""
+        Base._Base__nb_objects = 0
+        self.assertRaises(TypeError, Square)
+        s1 = Square(5)
+        self.assertEqual(s1.id, 1)
+        self.assertEqual(s1.x, 0)
+        self.assertEqual(s1.y, 0)
+        self.assertEqual(s1.width, 5)
+        self.assertEqual(s1.height, 5)
+
+    def test_square_area(self):
+        """Method tests squares area"""
+        s1 = Square(5)
+        self.assertEqual(s1.area(), 25)
+        s1.size = 10
+        self.assertEqual(s1.area(), 100)
+
+    def test_square_display(self):
+        """Method tests squares string representation"""
+        Base._Base__nb_objects = 0
+        s1 = Square(5)
+        f = io.StringIO()
+        with redirect_stdout(f):
+            s1.display()
+        s = f.getvalue()
+        self.assertEqual(s, "#####\n#####\n#####\n#####\n#####\n")
+        f = io.StringIO()
+        with redirect_stdout(f):
+            print(s1)
+        s = f.getvalue()
+        self.assertEqual(s, "[Square] (1) 0/0 - 5\n")
+        s2 = Square(2, 2)
+        f = io.StringIO()
+        with redirect_stdout(f):
+            s2.display()
+        s = f.getvalue()
+        self.assertEqual(s, "  ##\n  ##\n")
+        f = io.StringIO()
+        with redirect_stdout(f):
+            print(s2)
+        s = f.getvalue()
+        self.assertEqual(s, "[Square] (2) 2/0 - 2\n")
+        s3 = Square(3, 1, 3)
+        f = io.StringIO()
+        with redirect_stdout(f):
+            s3.display()
+        s = f.getvalue()
+        self.assertEqual(s,"\n\n\n ###\n ###\n ###\n")
+        f = io.StringIO()
+        with redirect_stdout(f):
+            print(s3)
+        s = f.getvalue()
+        self.assertEqual(s, "[Square] (3) 1/3 - 3\n")
+
+    def test_square_update(self):
+        """Test square update method"""
+        Base._Base__nb_objects = 0
+        s1 = Square(5)
+        self.assertEqual(s1.id, 1)
+        self.assertEqual(s1.x, 0)
+        self.assertEqual(s1.y, 0)
+        self.assertEqual(s1.size, 5)
+        s1.update(10)
+        self.assertEqual(s1.id, 10)
+        self.assertEqual(s1.x, 0)
+        self.assertEqual(s1.y, 0)
+        self.assertEqual(s1.size, 5)
+        s1.update(1, 2)
+        self.assertEqual(s1.id, 1)
+        self.assertEqual(s1.x, 0)
+        self.assertEqual(s1.y, 0)
+        self.assertEqual(s1.size, 2)
+        s1.update(1, 2, 3)
+        self.assertEqual(s1.id, 1)
+        self.assertEqual(s1.x, 3)
+        self.assertEqual(s1.y, 0)
+        self.assertEqual(s1.size, 2)
+        s1.update(1, 2, 3, 4)
+        self.assertEqual(s1.id, 1)
+        self.assertEqual(s1.x, 3)
+        self.assertEqual(s1.y, 4)
+        self.assertEqual(s1.size, 2)
+        s1.update(x=12)
+        self.assertEqual(s1.id, 1)
+        self.assertEqual(s1.x, 12)
+        self.assertEqual(s1.y, 4)
+        self.assertEqual(s1.size, 2)
+        s1.update(size=7, y=1)
+        self.assertEqual(s1.id, 1)
+        self.assertEqual(s1.x, 12)
+        self.assertEqual(s1.y, 1)
+        self.assertEqual(s1.size, 7)
+        s1.update(size=7, id=89, y=1)
+        self.assertEqual(s1.id, 89)
+        self.assertEqual(s1.x, 12)
+        self.assertEqual(s1.y, 1)
+        self.assertEqual(s1.size, 7)
+
+    def test_to_dictionary(self):
+        """Test method for to_dictionary"""
+        Base._Base__nb_objects = 0
+        s1 = Square(10, 2, 1)
+        s1_dict = s1.to_dictionary()
+        s1_dict_t = {'id': 1, 'x': 2, 'size': 10, 'y': 1}
+        self.assertEqual(s1_dict, s1_dict_t)
+        self.assertEqual(type(s1_dict), dict)
+        s2 = Square(1, 1)
+        s2.update(**s1_dict)
+        self.assertEqual(s1 == s2, False)

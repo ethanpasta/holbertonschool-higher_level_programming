@@ -1,3 +1,4 @@
+
 #!/usr/bin/python3
 """Test module for base class"""
 
@@ -8,7 +9,7 @@ from models.rectangle import Rectangle
 from contextlib import redirect_stdout
 import io
 
-class TestBase(unittest.TestCase):
+class TestRectangle(unittest.TestCase):
     def test_rect_attr(self):
         """Method tests Rectangle private attributes"""
         Base._Base__nb_objects = 0
@@ -252,5 +253,13 @@ class TestBase(unittest.TestCase):
         s = f.getvalue()
         self.assertEqual(s, "[Rectangle] (89) 1/3 - 4/2\n")
 
+    def test_to_dictionary(self):
+        """Method tests to_dictionary method"""
+        Base._Base__nb_objects = 0
+        r1 = Rectangle(10, 2, 1, 9)
+        r1_dict = r1.to_dictionary()
+        dict_t = {'x': 1, 'y': 9, 'id': 1, 'height': 2, 'width': 10}
+        self.assertEqual(r1_dict, dict_t)
+        self.assertEqual(type(r1_dict), dict)
 if __name__ == '__main__':
     unittest.main()
