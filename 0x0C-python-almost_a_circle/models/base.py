@@ -3,6 +3,7 @@
 
 
 import json
+import csv
 
 
 class Base:
@@ -84,3 +85,19 @@ class Base:
                     **d) for d in cls.from_json_string(f.read())]
         except:
             return []
+
+    @classmethod
+    def save_to_file_csv(cls, list_objs):
+        from models.rectangle import Rectangle
+        from models.square import Square
+        filename = "{}.csv".format(cls.__name__)
+        write_l = []
+        if cls is Rectangle:
+            for obj in list_objs:
+                write_l.append([obj.id, obj.width, obj.height, obj.x, obj.y])
+        elif cls is Square:
+            for obj in list_objs:
+                write_l.append(obj.id, obj.size, obj.x, obj.y)
+        with open(filename, 'w+', newline='') as f:
+            writer = csv.writer(f)
+            writer.writerows(write_l)
