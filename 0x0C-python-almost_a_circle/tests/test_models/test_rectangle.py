@@ -1,4 +1,3 @@
-
 #!/usr/bin/python3
 """Test module for base class"""
 
@@ -8,6 +7,7 @@ from models.base import Base
 from models.rectangle import Rectangle
 from contextlib import redirect_stdout
 import io
+import os
 
 class TestRectangle(unittest.TestCase):
     def test_rect_attr(self):
@@ -181,7 +181,15 @@ class TestRectangle(unittest.TestCase):
         with redirect_stdout(f):
             r1.display()
         s = f.getvalue()
-        self.assertEqual(s, "####\n####\n####\n####\n####\n####\n")
+        s1 = '''\
+####
+####
+####
+####
+####
+####
+'''
+        self.assertEqual(s, s1)
         r2 = Rectangle(2, 2)
         f = io.StringIO()
         with redirect_stdout(f):
@@ -261,5 +269,64 @@ class TestRectangle(unittest.TestCase):
         dict_t = {'x': 1, 'y': 9, 'id': 1, 'height': 2, 'width': 10}
         self.assertEqual(r1_dict, dict_t)
         self.assertEqual(type(r1_dict), dict)
+
+    def test_save_to_file(self):
+        """Method tests rectangles save_to_file method"""
+        r1 = Rectangle(10, 7, 2, 8)
+        r2 = Rectangle(2, 4)
+        try:
+            os.remove("Rectangle.json")
+        except:
+            pass
+        Rectangle.save_to_file([r1, r2])
+        with open('Rectangle.json', 'r') as f:
+            self.assertEqual(len(f.read()), len(str([r1.to_dictionary(), r2.to_dictionary()])))
+        try:
+            os.remove("Rectangle.json")
+        except:
+            pass
+        Rectangle.save_to_file(None)
+        with open('Rectangle.json', 'r') as f:
+            self.assertEqual(f.read(), "[]")
+        try:
+            os.remove("Rectangle.json")
+        except:
+            pass
+        Rectangle.save_to_file([])
+        with open('Rectangle.json', 'r') as f:
+            self.assertEqual(f.read(), "[]")
+
+    def test_from_json_string(self):
+        """Method tests from_json_string method"""
+        list_input = [
+            {'id': 89, 'width': 10, 'height': 4},
+            {'id': 7, 'width': 1, 'height': 7}
+        ]
+        json_list_input = Rectangle.to_json_string(list_input)
+        list_output = Rectangle.from_json_string(json_list_input)
+        list_output_t = [{'height': 4, 'width': 10, 'id': 89}, {'height': 7, 'width': 1, 'id': 7}]
+        self.assertEqual(list_output, list_output_t)
+
+    def test_create(self):
+        """Method tests rectangles create method"""
+        r1 = Rectangle(3, 5, 1)
+        r1_dic = r1.to_dictionary()
+        r2 = Rectangle.create(**r1_dic)
+        self.assertEqual(str(r1), str(r2))
+
+    def test_load_from_file(self):
+        """Method tests load_from_file method"""
+        r1 = Rectangle(10, 7, 2, 8)
+        r2 = Rectangle(2, 4)
+        list_input = [r1, r2]
+        Rectangle.save_to_file(list_input)
+        list_output = Rectangle.load_from_file()
+        self.assertEqual(str(list_input[0].to_dictionary()), str(list_output[0].to_dictionary()))
+        try:
+            os.remove('Rectangle.json')
+        except:
+            pass
+        list_output = Rectangle.load_from_file()
+        self.assertEqual(list_output, [])
 if __name__ == '__main__':
     unittest.main()

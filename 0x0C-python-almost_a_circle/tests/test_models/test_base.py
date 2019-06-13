@@ -38,5 +38,6 @@ class TestBase(unittest.TestCase):
         json_dic_t = '[{"width": 10, "y": 8, "id": 1, "x": 2, "height": 7}]'
         self.assertEqual(type(dic), dict)
         self.assertEqual(type(json_dic), str)
+
 if __name__ == '__main__':
     unittest.main()

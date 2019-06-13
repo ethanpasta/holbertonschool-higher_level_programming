@@ -1,4 +1,3 @@
-
 #!/usr/bin/python3
 """Module for testing Square class"""
 
@@ -24,6 +23,105 @@ class TestSquare(unittest.TestCase):
         self.assertEqual(s1.width, 5)
         self.assertEqual(s1.height, 5)
 
+    def test_square_x(self):
+        """Method tests squares 'x' attribute"""
+        self.assertRaisesRegex(TypeError,
+                               "x must be an integer",
+                               Square, 1, '2')
+        self.assertRaisesRegex(ValueError,
+                               "x must be >= 0",
+                               Square, 1, -2)
+        self.assertRaisesRegex(TypeError,
+                               "x must be an integer",
+                               Square, 1, [1, 2, 3])
+        self.assertRaisesRegex(TypeError,
+                               "x must be an integer",
+                               Square, 1, 1.3)
+        self.assertRaisesRegex(TypeError,
+                               "x must be an integer",
+                               Square, 1, False)
+        self.assertRaisesRegex(TypeError,
+                               "x must be an integer",
+                               Square, 1, "hello")
+        self.assertRaisesRegex(TypeError,
+                               "x must be an integer",
+                               Square, 1, {'1': 1, '2': 2})
+        self.assertRaisesRegex(TypeError,
+                               "x must be an integer",
+                               Square, 1, float('inf'))
+        self.assertRaisesRegex(TypeError,
+                               "x must be an integer",
+                               Square, 1, float('-inf'))
+        self.assertRaisesRegex(TypeError,
+                               "x must be an integer",
+                               Square, 1, float('NaN'))
+
+    def test_rect_y(self):
+        """Method tests rectangles 'y' attribute"""
+        self.assertRaisesRegex(TypeError,
+                               "y must be an integer",
+                               Square, 1, 1, '2')
+        self.assertRaisesRegex(ValueError,
+                               "y must be >= 0",
+                               Square, 1, 1, -2)
+        self.assertRaisesRegex(TypeError,
+                               "y must be an integer",
+                               Square, 1, 1, [1, 2, 3])
+        self.assertRaisesRegex(TypeError,
+                               "y must be an integer",
+                               Square, 1, 1, 1.3)
+        self.assertRaisesRegex(TypeError,
+                               "y must be an integer",
+                               Square, 1, 1, False)
+        self.assertRaisesRegex(TypeError,
+                               "y must be an integer",
+                               Square, 1, 1, "hello")
+        self.assertRaisesRegex(TypeError,
+                               "y must be an integer",
+                               Square, 1, 1, {'1': 1, '2': 2})
+        self.assertRaisesRegex(TypeError,
+                               "y must be an integer",
+                               Square, 1, 1, float('inf'))
+        self.assertRaisesRegex(TypeError,
+                               "y must be an integer",
+                               Square, 1, 1, float('-inf'))
+        self.assertRaisesRegex(TypeError,
+                               "y must be an integer",
+                               Square, 1, 1, float('NaN'))
+
+    def test_square_size(self):
+        """Method tests squares size attribute"""
+        self.assertRaisesRegex(TypeError,
+                               "width must be an integer",
+                               Square, '2')
+        self.assertRaisesRegex(ValueError, "width must be > 0", Square, 0)
+        self.assertRaisesRegex(ValueError,
+                               "width must be > 0",
+                               Square, -2)
+        self.assertRaisesRegex(TypeError,
+                               "width must be an integer",
+                               Square, [1, 2, 3])
+        self.assertRaisesRegex(TypeError,
+                               "width must be an integer",
+                               Square, 1.3)
+        self.assertRaisesRegex(TypeError,
+                               "width must be an integer",
+                               Square, False)
+        self.assertRaisesRegex(TypeError,
+                               "width must be an integer",
+                               Square, "hello")
+        self.assertRaisesRegex(TypeError,
+                               "width must be an integer",
+                               Square, {'1': 1, '2': 2}, 1)
+        self.assertRaisesRegex(TypeError,
+                               "width must be an integer",
+                               Square, float('inf'))
+        self.assertRaisesRegex(TypeError,
+                               "width must be an integer",
+                               Square, float('-inf'))
+        self.assertRaisesRegex(TypeError,
+                               "width must be an integer",
+                               Square, float('NaN'))
     def test_square_area(self):
         """Method tests squares area"""
         s1 = Square(5)
@@ -123,3 +221,29 @@ class TestSquare(unittest.TestCase):
         s2 = Square(1, 1)
         s2.update(**s1_dict)
         self.assertEqual(s1 == s2, False)
+
+    def test_save_to_file(self):
+        """Method tests squares save_to_file method"""
+        r1 = Square(10, 7, 2, 8)
+        r2 = Square(2, 4)
+        try:
+            os.remove("Square.json")
+        except:
+            pass
+        Square.save_to_file([r1, r2])
+        with open('Square.json', 'r') as f:
+            self.assertEqual(len(f.read()), len(str([r1.to_dictionary(), r2.to_dictionary()])))
+        try:
+            os.remove("Square.json")
+        except:
+            pass
+        Square.save_to_file(None)
+        with open('Square.json', 'r') as f:
+            self.assertEqual(f.read(), "[]")
+        try:
+            os.remove("Square.json")
+        except:
+            pass
+        Square.save_to_file([])
+        with open('Square.json', 'r') as f:
+            self.assertEqual(f.read(), "[]")
