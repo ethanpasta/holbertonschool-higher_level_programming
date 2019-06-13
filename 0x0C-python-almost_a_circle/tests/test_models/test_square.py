@@ -222,6 +222,13 @@ class TestSquare(unittest.TestCase):
         s2.update(**s1_dict)
         self.assertEqual(s1 == s2, False)
 
+    def test_create(self):
+        """Method tests rectangles create method"""
+        r1 = Square(3, 5, 1)
+        r1_dic = r1.to_dictionary()
+        r2 = Square.create(**r1_dic)
+        self.assertEqual(str(r1), str(r2))
+
     def test_save_to_file(self):
         """Method tests squares save_to_file method"""
         r1 = Square(10, 7, 2, 8)
@@ -247,3 +254,12 @@ class TestSquare(unittest.TestCase):
         Square.save_to_file([])
         with open('Square.json', 'r') as f:
             self.assertEqual(f.read(), "[]")
+
+    def test_load_from_file(self):
+        """Method tests load_from_file method"""
+        r1 = Square(5)
+        r2 = Square(7, 9, 1)
+        list_input = [r1, r2]
+        Square.save_to_file(list_input)
+        list_output = Square.load_from_file()
+        self.assertEqual(str(list_input[0].to_dictionary()), str(list_output[0].to_dictionary()))
