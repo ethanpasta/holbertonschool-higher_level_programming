@@ -8,7 +8,7 @@ def parse(url, num):
         print("{}: {}".format(t.get('commit').get('tree').get('sha'),
                               t.get('commit').get('committer').get('name')))
     if 'next' in r.links.keys() and num == 0:
-        parse(r.links['next']['url'], 1)
+        parse(r.links.get('next').get('url'), 1)
 
 if __name__ == "__main__":
 
