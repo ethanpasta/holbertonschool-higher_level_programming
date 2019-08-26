@@ -8,6 +8,9 @@ if __name__ == "__main__":
 
     r = requests.get("https://api.github.com/repos/{}/{}/commits".format(
         sys.argv[2], sys.argv[1]))
-    data = r.json()
-    for t in data[0:10]:
-        print("{}: {}".format(t.get('sha'), t.get('author').get('name')))
+    if r.status_code != 200:
+        print("None")
+    else:
+        data = r.json()
+        for t in data[0:10]:
+            print("{}: {}".format(t.get('sha'), t.get('author').get('name')))
