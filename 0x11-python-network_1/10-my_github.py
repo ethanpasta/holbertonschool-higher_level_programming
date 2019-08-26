@@ -7,8 +7,9 @@ if __name__ == "__main__":
     import sys
 
     data = {'password': sys.argv[2]}
-    login = requests.get('https://api.github.com/users/' + sys.argv[1], data=data)
+    login = requests.get(
+        'https://api.github.com/users/' + sys.argv[1], data=data)
     if login:
-        print(login.json()['id'])
+        print(login.json().get('id'))
     else:
         print("None")

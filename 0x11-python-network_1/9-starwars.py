@@ -10,6 +10,6 @@ if __name__ == "__main__":
     r = requests.get(url)
     data = r.json()
     if data:
-        print("Number of results: {}".format(data['count']))
-        for dic in data['results']:
-            print(dic['name'])
+        print("Number of results: {}".format(data.get('count')))
+        for dic in data.get('results'):
+            print(dic.get('name'))
