@@ -13,4 +13,5 @@ if __name__ == "__main__":
     else:
         data = r.json()
         for t in data[0:10]:
-            print("{}: {}".format(t.get('sha'), t.get('author').get('name')))
+            print("{}: {}".format(t.get('sha'),
+                                  t.get('commit').get('author').get('name')))
