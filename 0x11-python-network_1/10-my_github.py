@@ -6,10 +6,9 @@ if __name__ == "__main__":
     import requests
     import sys
 
-    data = {'password': sys.argv[2]}
     login = requests.get(
-        'https://api.github.com/users/' + sys.argv[1], data=data)
-    if login:
+        'https://api.github.com/user', auth=(sys.argv[1], sys.argv[2]))
+    if login.status_code < 400:
         print(login.json().get('id'))
     else:
         print("None")
