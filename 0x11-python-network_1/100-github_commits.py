@@ -10,5 +10,4 @@ if __name__ == "__main__":
         sys.argv[2], sys.argv[1]))
     data = r.json()
     for t in data[0:10]:
-        print("{}: {}".format(t.get('commit').get('tree').get('sha'),
-                              t.get('commit').get('committer').get('name')))
+        print("{}: {}".format(t.get('sha'), t.get('author').get('name')))
