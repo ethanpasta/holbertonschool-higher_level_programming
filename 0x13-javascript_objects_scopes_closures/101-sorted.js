@@ -1,5 +1,5 @@
 #!/usr/bin/node
-const dict = require('./101-data.js').dict;
+const dict = require('./101-data').dict;
 const newdict = {};
 for (var key in dict) {
   const val = dict[key];
