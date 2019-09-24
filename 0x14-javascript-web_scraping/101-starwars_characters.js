@@ -2,7 +2,7 @@
 const request = require('request');
 
 function printPeople (people, index) {
-  if (index >= people.index) {
+  if (index >= people.length) {
     return;
   }
   request(people[index], function (err, resp, body) {
